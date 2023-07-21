@@ -33,5 +33,5 @@ CMD find /app/dist/ -type f -name "*.js" \
 -exec sed -i 's#||WIDGET_PLATFORM_API_URL_PLACEHOLDER||#'"$WIDGET_PLATFORM_API_URL_PLACEHOLDER"'#g' {} \; \
 -exec sed -i 's#||GRAPHQL_DATA_API_URL_PLACEHOLDER||#'"$GRAPHQL_DATA_API_URL_PLACEHOLDER"'#g' {} \; \
 -exec sed -i 's#||FEEDBACK_API_URL_PLACEHOLDER||#'"$FEEDBACK_API_URL_PLACEHOLDER"'#g' {} \; \
--exec sed -i 's#||SUBSCRIBE_API_URL||#'"$SUBSCRIBE_API_URL"'#g' {} \; ;\
+-exec sed -i 's#||SUBSCRIBE_API_URL_PLACEHOLDER||#'"$SUBSCRIBE_API_URL_PLACEHOLDER"'#g' {} \; ;\
 dumb-init node dist/demosite/server/main.js
