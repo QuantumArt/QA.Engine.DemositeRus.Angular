@@ -28,5 +28,10 @@ COPY --from=build /app/dist ./dist
 ENV NODE_ENV production
 EXPOSE 4000
 
-USER node
-CMD ["dumb-init", "node", "dist/demosite/server/main.js"]
+# Find all js files, after that replace (with env) "baked" urls, and serve corrected statics
+CMD find /app/dist/ -type f -name "*.js" \
+-exec sed -i 's#||WIDGET_PLATFORM_API_URL_PLACEHOLDER||#'"$WIDGET_PLATFORM_API_URL_PLACEHOLDER"'#g' {} \; \
+-exec sed -i 's#||GRAPHQL_DATA_API_URL_PLACEHOLDER||#'"$GRAPHQL_DATA_API_URL_PLACEHOLDER"'#g' {} \; \
+-exec sed -i 's#||FEEDBACK_API_URL_PLACEHOLDER||#'"$FEEDBACK_API_URL_PLACEHOLDER"'#g' {} \; \
+-exec sed -i 's#||SUBSCRIBE_API_URL||#'"$SUBSCRIBE_API_URL"'#g' {} \; ;\
+dumb-init node dist/demosite/server/main.js
