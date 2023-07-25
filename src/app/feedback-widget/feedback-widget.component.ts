@@ -1,9 +1,8 @@
-﻿import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WidgetComponent, WidgetDetails } from '@quantumart/qa-engine-page-structure-angular';
-import { FeedbackRequestResult, FeedbackWidgetService } from './feedback-widget.service';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FeedbackRequest, FeedbackRequestResult, FeedbackWidgetService } from './feedback-widget.service';
 
 export interface FeedbackWidgetDetails extends WidgetDetails {
 }
@@ -47,6 +46,6 @@ export class FeedbackWidgetComponent implements WidgetComponent {
   }
 
   public onSubmit(): void {
-    this.result$ = this.feedbackWidgetService.send({ ...this.feedbackForm.value });
+    this.result$ = this.feedbackWidgetService.send({ ...(this.feedbackForm.value as FeedbackRequest) });
   }
 }

@@ -1,5 +1,4 @@
-import { LOCALE_ID, NgModule, Type } from '@angular/core';
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { APP_ID, LOCALE_ID, NgModule, Type } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -25,8 +24,6 @@ import '@angular/common/locales/global/ru';
     AppComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BrowserTransferStateModule,
     BrowserAnimationsModule,
     OverlayModule,
     ApolloModule,
@@ -53,6 +50,7 @@ import '@angular/common/locales/global/ru';
     }),
   ],
   providers: [
+    { provide: APP_ID, useValue: 'serverApp' },
     { provide: LOCALE_ID, useValue: 'ru' },
     {
       provide: HTTP_INTERCEPTORS,

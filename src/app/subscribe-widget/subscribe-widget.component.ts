@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -11,7 +11,7 @@ import {
   WidgetDetails,
 } from '@quantumart/qa-engine-page-structure-angular';
 import { SubscribeWidgetService } from './subscribe-widget.service';
-import { NewsCategory } from './subscribe-widget.types';
+import { NewsCategory, SubscribeRequest } from './subscribe-widget.types';
 
 export interface SubscribeWidgetDetails extends WidgetDetails {}
 
@@ -98,6 +98,6 @@ export class SubscribeWidgetComponent implements WidgetComponent {
   }
 
   public onSubmit(): void {
-    this.subscribeWidgetService.sendForm({ ...this.subscribeForm.value });
+    this.subscribeWidgetService.sendForm({ ...(this.subscribeForm.value as SubscribeRequest) });
   }
 }
