@@ -4,10 +4,10 @@ ARG RUNTIME_IMAGE=${NODE_IMAGE}-slim
 FROM ${NODE_IMAGE} as build
 WORKDIR /app
 
-ENV FEEDBACK_API_URL_PLACEHOLDER=feedback/sendfeedback
-ENV SUBSCRIBE_API_URL_PLACEHOLDER=subscribe/add
-ENV WIDGET_PLATFORM_API_URL_PLACEHOLDER=http://localhost:6200
-ENV GRAPHQL_DATA_API_URL_PLACEHOLDER=http://localhost:6300/graphql 
+ENV FEEDBACK_API_URL=feedback/sendfeedback
+ENV SUBSCRIBE_API_URL=subscribe/add
+ENV WIDGET_PLATFORM_API_URL=http://localhost:6200
+ENV GRAPHQL_DATA_API_URL=http://localhost:6300/graphql 
 
 COPY package*.json ./
 
@@ -35,8 +35,8 @@ EXPOSE 4000
 
 # Find all js files, after that replace (with env) "baked" urls, and serve corrected statics
 CMD find /app/dist/ -type f -name "*.js" \
--exec sed -i 's#||WIDGET_PLATFORM_API_URL_PLACEHOLDER||#'"$WIDGET_PLATFORM_API_URL_PLACEHOLDER"'#g' {} \; \
--exec sed -i 's#||GRAPHQL_DATA_API_URL_PLACEHOLDER||#'"$GRAPHQL_DATA_API_URL_PLACEHOLDER"'#g' {} \; \
--exec sed -i 's#||FEEDBACK_API_URL_PLACEHOLDER||#'"$FEEDBACK_API_URL_PLACEHOLDER"'#g' {} \; \
--exec sed -i 's#||SUBSCRIBE_API_URL_PLACEHOLDER||#'"$SUBSCRIBE_API_URL_PLACEHOLDER"'#g' {} \; ;\
+-exec sed -i 's#||WIDGET_PLATFORM_API_URL_PLACEHOLDER||#'"$WIDGET_PLATFORM_API_URL"'#g' {} \; \
+-exec sed -i 's#||GRAPHQL_DATA_API_URL_PLACEHOLDER||#'"$GRAPHQL_DATA_API_URL"'#g' {} \; \
+-exec sed -i 's#||FEEDBACK_API_URL_PLACEHOLDER||#'"$FEEDBACK_API_URL"'#g' {} \; \
+-exec sed -i 's#||SUBSCRIBE_API_URL_PLACEHOLDER||#'"$SUBSCRIBE_API_URL"'#g' {} \; ;\
 dumb-init node dist/demosite/server/main.js
