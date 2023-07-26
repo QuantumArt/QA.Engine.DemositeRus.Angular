@@ -1,4 +1,4 @@
-﻿ARG NODE_IMAGE=node:16
+ARG NODE_IMAGE=node:16
 ARG RUNTIME_IMAGE=${NODE_IMAGE}-slim
 
 FROM ${NODE_IMAGE} as build
@@ -19,7 +19,7 @@ COPY server.ts ./
 COPY tsconfig*.json ./
 COPY src ./src
 
-RUN npm run build:ssr -- --configuration=production
+RUN npm run build:ssr
 
 FROM $RUNTIME_IMAGE as runtime
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
