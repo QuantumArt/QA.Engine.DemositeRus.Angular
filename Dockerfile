@@ -4,6 +4,11 @@ ARG RUNTIME_IMAGE=${NODE_IMAGE}-slim
 FROM ${NODE_IMAGE} as build
 WORKDIR /app
 
+ENV FEEDBACK_API_URL_PLACEHOLDER=feedback/sendfeedback
+ENV SUBSCRIBE_API_URL_PLACEHOLDER=subscribe/add
+ENV WIDGET_PLATFORM_API_URL_PLACEHOLDER=http://localhost:6200
+ENV GRAPHQL_DATA_API_URL_PLACEHOLDER=http://localhost:6300/graphql 
+
 COPY package*.json ./
 
 RUN npm ci
